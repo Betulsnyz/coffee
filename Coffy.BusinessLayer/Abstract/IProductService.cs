@@ -9,5 +9,12 @@ namespace Coffy.BusinessLayer.Abstract
 {
     public interface IProductService : IGenericService<Product>
     {
+        List<Product> TGetProductWithCategory();
+        int TProductCount();
+        int TProductCountByCategoryNameMakarna();
+        int TProductCountByCategoryNameDrink();
+        decimal TProductPriceAvg();
+        String TProductNameByMaxPrice();
+        String TProductNameByMinPrice();
     }
 }

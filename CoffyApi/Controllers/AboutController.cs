@@ -16,6 +16,7 @@ namespace CoffyApi.Controllers
         {
             _aboutService = aboutService;
         }
+
         [HttpGet]
         public IActionResult AboutList()
         {
@@ -27,44 +28,41 @@ namespace CoffyApi.Controllers
         {
             About about = new About()
             {
-                Title = createAboutDto.Title,
-                Description = createAboutDto.Description,
                 ImageUrl = createAboutDto.ImageUrl,
+                Title = createAboutDto.Title,
+                Description = createAboutDto.Description
+
             };
-
             _aboutService.TAdd(about);
-            return Ok("Hakkımda kısmı başarılı bir şekilde yüklendi");
+            return Ok("Hakkımda kısmı başarılı bir şekilde eklnedi");
         }
-        [HttpDelete]
-
+        [HttpDelete("{id}")]
         public IActionResult DeleteAbout(int id)
         {
-            var values = _aboutService.TGetbyID(id);
-            _aboutService.TDelete(values);
-            return Ok("hakkımda alanı silindi");
+            var value = _aboutService.TGetbyID(id);
+            _aboutService.TDelete(value);
+            return Ok("Hakkımda kısmı başarılı bir şekilde silindi");
         }
         [HttpPut]
         public IActionResult UpdateAbout(UpdateAboutDto updateAboutDto)
         {
             About about = new About()
             {
-                Title = updateAboutDto.Title,
-                Description = updateAboutDto.Description,
                 AboutID = updateAboutDto.AboutID,
                 ImageUrl = updateAboutDto.ImageUrl,
+                Title = updateAboutDto.Title,
+                Description = updateAboutDto.Description
             };
             _aboutService.TUpdate(about);
-            return Ok("hakkımda alanı başarıyla güncellendi");
+            return Ok("Hakkımda kısmı başarılı bir şekilde güncellendi");
         }
+        [HttpGet("{id}")]
 
-        [HttpGet("GetAbout")]
         public IActionResult GetAbout(int id)
         {
-            {
-                var value = _aboutService.TGetbyID(id);
-                return Ok(value);
-            }
-
+            
+            var value = _aboutService.TGetbyID(id);
+            return Ok(value);
         }
     }
 }

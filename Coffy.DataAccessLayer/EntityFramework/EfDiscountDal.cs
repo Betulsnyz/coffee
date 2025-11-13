@@ -15,6 +15,6 @@ namespace Coffy.DataAccessLayer.EntityFramework
         public EfDiscountDal(CoffyContext context) : base(context)
         {
         }
-    {
+    
     }
 }

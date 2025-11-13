@@ -38,6 +38,41 @@ namespace Coffy.BusinessLayer.Concrete
             return _productDal.GetListAll();
         }
 
+        public List<Product> TGetProductWithCategory()
+        {
+            return _productDal.GetProductWithCategory();
+        }
+
+        public int TProductCount()
+        {
+            return _productDal.ProductCount();
+        }
+
+        public int TProductCountByCategoryNameDrink()
+        {
+            return _productDal.ProductCountByCategoryNameDrink();
+        }
+
+        public int TProductCountByCategoryNameMakarna()
+        {
+            return _productDal.ProductCountByCategoryNameMakarna();
+        }
+
+        public string TProductNameByMaxPrice()
+        {
+            return _productDal.ProductNameByMaxPrice();
+        }
+
+        public string TProductNameByMinPrice()
+        {
+            return _productDal.ProductNameByMinPrice();
+        }
+
+        public decimal TProductPriceAvg()
+        {
+            return _productDal.ProductPriceAvg();
+        }
+
         public void TUpdate(Product entity)
         {
             _productDal.Update(entity);

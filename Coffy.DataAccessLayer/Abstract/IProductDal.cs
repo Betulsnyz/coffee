@@ -9,5 +9,12 @@ namespace Coffy.DataAccessLayer.Abstract
 {
     public interface IProductDal : IGenericDal<Product>
     {
+        List<Product> GetProductWithCategory();
+        int ProductCount();
+        int ProductCountByCategoryNameMakarna();
+        int ProductCountByCategoryNameDrink();
+        decimal ProductPriceAvg();
+        String ProductNameByMaxPrice();
+        String ProductNameByMinPrice();
     }
 }
