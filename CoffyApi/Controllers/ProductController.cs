@@ -66,6 +66,12 @@ namespace CoffyApi.Controllers
             return Ok(_ProductService.TProductNameByMinPrice());
         }
 
+        [HttpGet("ProductAvgPriceByMakarna")]
+        public IActionResult ProductAvgPriceByMakarna()
+        {
+            return Ok(_ProductService.TProductAvgPriceByMakarna());
+        }
+
         [HttpGet("ProductListWithCategory")]  
         public IActionResult ProductListWithCAtegory()
         {

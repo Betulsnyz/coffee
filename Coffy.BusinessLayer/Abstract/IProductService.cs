@@ -16,5 +16,6 @@ namespace Coffy.BusinessLayer.Abstract
         decimal TProductPriceAvg();
         String TProductNameByMaxPrice();
         String TProductNameByMinPrice();
+        decimal TProductAvgPriceByMakarna();
     }
 }

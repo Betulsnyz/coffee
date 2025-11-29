@@ -73,6 +73,11 @@ namespace Coffy.BusinessLayer.Concrete
             return _productDal.ProductPriceAvg();
         }
 
+        public decimal TProductAvgPriceByMakarna()
+        {
+            return _productDal.ProductAvgPriceByMakarna();
+        }
+
         public void TUpdate(Product entity)
         {
             _productDal.Update(entity);

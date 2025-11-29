@@ -61,5 +61,11 @@ namespace Coffy.DataAccessLayer.EntityFramework
             using var context = new CoffyContext();
             return context.Products.Average(x => x.Price);
         }
+
+        public decimal ProductAvgPriceByMakarna()
+        {
+            using var context = new CoffyContext();
+            return context.Products.Where(x => x.CategoryID == (context.Categories.Where(y => y.CategoryName == "Makarna").Select(z => z.CategoryID).FirstOrDefault())).Average(w=>w.Price);
+        }
     }
 }
