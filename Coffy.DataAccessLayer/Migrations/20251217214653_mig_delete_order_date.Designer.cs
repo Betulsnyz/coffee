@@ -4,6 +4,7 @@ using Coffy.DataAccessLayer.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Coffy.DataAccessLayer.Migrations
 {
     [DbContext(typeof(CoffyContext))]
-    partial class CoffyContextModelSnapshot : ModelSnapshot
+    [Migration("20251217214653_mig_delete_order_date")]
+    partial class mig_delete_order_date
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -191,26 +193,6 @@ namespace Coffy.DataAccessLayer.Migrations
                     b.HasKey("FeatureID");
 
                     b.ToTable("Features");
-                });
-
-            modelBuilder.Entity("Coffy.EntityLayer.Entities.MenuTable", b =>
-                {
-                    b.Property<int>("MenuTableID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MenuTableID"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.HasKey("MenuTableID");
-
-                    b.ToTable("MenuTables");
                 });
 
             modelBuilder.Entity("Coffy.EntityLayer.Entities.MoneyCase", b =>

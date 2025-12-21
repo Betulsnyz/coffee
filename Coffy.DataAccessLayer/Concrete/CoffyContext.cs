@@ -31,5 +31,7 @@ namespace Coffy.DataAccessLayer.Concrete
         public DbSet<Testimonial> Testimonials { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<MoneyCase> MoneyCases { get; set; }
+        public DbSet<MenuTable> MenuTables { get; set; }
     }
 }
