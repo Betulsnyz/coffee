@@ -8,10 +8,10 @@ namespace CoffyWebUI.Dtos.TestimonialDtos
 {
     public class CreateTestimonialDto
     {
-        public String Name { get; set; }
-        public String Title { get; set; }
-        public String Comment { get; set; }
-        public String ImageUrl { get; set; }
+        public string Name { get; set; }
+        public string Title { get; set; }
+        public string Comment { get; set; }
+        public string ImageUrl { get; set; }
         public bool Status { get; set; }
     }
 }
