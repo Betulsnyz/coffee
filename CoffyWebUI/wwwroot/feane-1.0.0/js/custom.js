@@ -2,10 +2,15 @@
 function getYear() {
     var currentDate = new Date();
     var currentYear = currentDate.getFullYear();
-    document.querySelector("#displayYear").innerHTML = currentYear;
+
+    var yearEl = document.querySelector("#displayYear");
+    if (yearEl) {
+        yearEl.innerHTML = currentYear;
+    }
 }
 
 getYear();
+
 
 
 // isotope js

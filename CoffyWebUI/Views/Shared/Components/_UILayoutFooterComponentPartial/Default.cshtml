@@ -1,0 +1,53 @@
+﻿@model ResultContactDto
+
+@if (Model != null)
+{
+    <footer class="footer_section">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-4 footer-col">
+                    <div class="footer_contact">
+                        <h4>Bize Ulaşın</h4>
+                        <div class="contact_link_box">
+                            <a href="@Model.Location">
+                                <i class="fa fa-map-marker"></i>
+                                <span>Lokasyon</span>
+                            </a>
+                            <a href="tel:@Model.PhoneNumber">
+                                <i class="fa fa-phone"></i>
+                                <span>@Model.PhoneNumber</span>
+                            </a>
+                            <a href="mailto:@Model.Mail">
+                                <i class="fa fa-envelope"></i>
+                                <span>@Model.Mail</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 footer-col">
+                    <div class="footer_detail">
+                        <a href="/Default/Index/" class="footer-logo">
+                            @Model.FooterTitle
+                        </a>
+                        <p>@Model.FooterDescription</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4 footer-col">
+                    <h4>@Model.OpenDays</h4>
+                    <p>@Model.OpenDaysDescription</p>
+                    <p>@Model.OpenHours</p>
+                </div>
+
+            </div>
+
+            <div class="footer-info">
+                <p>
+                    &copy; <span id="displayYear"></span> Tüm Hakları Saklıdır
+                </p>
+            </div>
+        </div>
+    </footer>
+}
