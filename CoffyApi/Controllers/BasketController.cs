@@ -1,6 +1,9 @@
 ﻿using Coffy.BusinessLayer.Abstract;
+using Coffy.DataAccessLayer.Concrete;
+using CoffyApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoffyApi.Controllers
 {
@@ -20,5 +23,23 @@ namespace CoffyApi.Controllers
             var values =_basketService.TGetBasketByMenuTableNumber(id);
             return Ok(values);
         }
+        [HttpGet("BasketListByMenuTableWithProductName")]
+        public IActionResult BasketListByMenuTableWithProductName(int id) 
+        {
+            using var context = new CoffyContext();
+            var values = context.Baskets.Include(x => x.Product).Where(y => y.MenuTableID == id).Select(z => new ResultBasketListWithProducts
+            {
+                BasketID = z.BasketID,
+                Count = z.Count,
+                MenuTableID = z.MenuTableID,
+                Price = z.Price,
+                ProductID = z.ProductID,
+                TotalPrice = z.TotalPrice,
+                ProductName = z.Product.ProductName
+            }).ToList();
+            return Ok(values);
+        }
+
     }
+
 }
