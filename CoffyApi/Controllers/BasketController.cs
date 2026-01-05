@@ -1,5 +1,7 @@
 ﻿using Coffy.BusinessLayer.Abstract;
 using Coffy.DataAccessLayer.Concrete;
+using Coffy.DtoLayer.BasketDto;
+using Coffy.EntityLayer.Entities;
 using CoffyApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -38,6 +40,20 @@ namespace CoffyApi.Controllers
                 ProductName = z.Product.ProductName
             }).ToList();
             return Ok(values);
+        }
+        [HttpPost]
+        public IActionResult CreateBasket(CreateBasketDto createBasketDto) 
+        { 
+            using var context=new CoffyContext();
+            _basketService.TAdd(new Basket()
+            {
+                ProductID = createBasketDto.ProductID,
+                Count = 1,
+                MenuTableID = 4,
+                Price=context.Products.Where(x=>x.ProductID==createBasketDto.ProductID).Select(y=>y.Price).FirstOrDefault(),
+                TotalPrice=0
+            });
+            return Ok();
         }
 
     }
