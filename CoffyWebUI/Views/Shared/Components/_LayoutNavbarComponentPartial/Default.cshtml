@@ -1,4 +1,37 @@
-﻿<div class="main-header">
+﻿<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+
+<div class="main-header">
+
+	<script type="text/javascript">
+
+		$(document).ready(() => {
+
+			var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:7113/CoffyHub").build();
+
+			$("#connstatus").text(connection.state);
+			connection.start().then(() => {
+				$("#connstatus").text(connection.state);
+				setInterval(() =>{
+					connection.invoke("SendNotification");
+				},1000);
+			}).catch((err) => { console.log(err) });
+
+			connection.on("ReceiveNotificationCountByFalse", (value) => {
+				$("#notificationcount").text(value);
+			});
+			connection.on("ReceiveNotificationListByFalse", (value) => {
+				console.log(value);
+			});
+		});
+
+	</script>
+
+
 	<div class="logo-header">
 		<a href="index.html" class="logo">
 			Coffe Admin
@@ -36,7 +69,7 @@
 				<li class="nav-item dropdown hidden-caret">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						<i class="la la-bell"></i>
-						<span class="notification">3</span>
+						<span class="notification" id="notificationcount">3</span>
 					</a>
 					<ul class="dropdown-menu notif-box" aria-labelledby="navbarDropdown">
 						<li>
@@ -53,8 +86,8 @@
 										<span class="time">5 minutes ago</span>
 									</div>
 								</a>
-								<a href="#">
-									<div class="notif-icon notif-success"> <i class="la la-comment"></i> </div>
+								<a href="#">notif-icon notif-success
+									<div class=""> <i class="la la-comment"></i> </div>
 									<div class="notif-content">
 										<span class="block">
 											Rahmad commented on Admin
