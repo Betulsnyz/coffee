@@ -57,7 +57,6 @@ namespace CoffyApi.Controllers
             return Ok("Hakkımda kısmı başarılı bir şekilde güncellendi");
         }
         [HttpGet("{id}")]
-
         public IActionResult GetAbout(int id)
         {
             
