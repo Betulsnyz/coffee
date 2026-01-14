@@ -34,7 +34,11 @@ namespace CoffyApi.Controllers
                 FooterDescription = createContactDto.FooterDescription,
                 Location = createContactDto.Location,
                 Mail  = createContactDto.Mail,
-                PhoneNumber = createContactDto.PhoneNumber
+                PhoneNumber = createContactDto.PhoneNumber,
+                FooterTitle = createContactDto.FooterTitle,
+                OpenDays = createContactDto.OpenDays,
+                OpenDaysDescription = createContactDto.OpenDaysDescription,
+                OpenHours = createContactDto.OpenHours
             });
             return Ok("iletişim başarılı bir şekilde oluşturuldu");
         }
@@ -54,7 +58,11 @@ namespace CoffyApi.Controllers
                 Mail = updateContactDto.Mail,   
                 ContactID = updateContactDto.ContactID,
                 FooterDescription = updateContactDto.FooterDescription,
-                Location = updateContactDto.Location
+                Location = updateContactDto.Location,
+                FooterTitle= updateContactDto.FooterTitle,
+                OpenDays = updateContactDto.OpenDays,
+                OpenHours= updateContactDto.OpenHours,
+                OpenDaysDescription = updateContactDto.OpenDaysDescription
             });
             return Ok("iletişim başarılı bir şekilde güncellendi");
         }

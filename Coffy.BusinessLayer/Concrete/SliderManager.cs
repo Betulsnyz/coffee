@@ -20,17 +20,17 @@ namespace Coffy.BusinessLayer.Concrete
 
         public void TAdd(Slider entity)
         {
-            throw new NotImplementedException();
+            _sliderDal.Add(entity);
         }
 
         public void TDelete(Slider entity)
         {
-            throw new NotImplementedException();
+            _sliderDal.Delete(entity);
         }
 
         public Slider TGetbyID(int id)
         {
-            throw new NotImplementedException();
+            return _sliderDal.GetbyID(id);
         }
 
         public List<Slider> TGetListAll()
@@ -40,7 +40,7 @@ namespace Coffy.BusinessLayer.Concrete
 
         public void TUpdate(Slider entity)
         {
-            throw new NotImplementedException();
+            _sliderDal.Update(entity);
         }
     }
 }
