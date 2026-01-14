@@ -11,5 +11,8 @@ namespace Coffy.BusinessLayer.Abstract
     {
         void TBookingStatusApproved(int id);
         void TBookingStatusCancelled(int id);
+        List<Booking> TGetBookingStatusApproved();
+        List<Booking> TGetBookingStatusCanceled();
+        List<Booking> TGetBookingStatusReceived();
     }
 }

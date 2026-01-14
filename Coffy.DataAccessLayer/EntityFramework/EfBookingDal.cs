@@ -20,7 +20,7 @@ namespace Coffy.DataAccessLayer.EntityFramework
         {
             using var context = new CoffyContext();
             var values = context.Bookings.Find(id);
-            values.Description="Rezervasyon Onaylandı";
+            values.Description = "Rezervasyon Onaylandı";
             context.SaveChanges();
         }
 
@@ -30,6 +30,28 @@ namespace Coffy.DataAccessLayer.EntityFramework
             var values = context.Bookings.Find(id);
             values.Description = "Rezervasyon İptal Edildi";
             context.SaveChanges();
+        }
+
+        public List<Booking> GetBookingStatusApproved()
+        {
+            var context = new CoffyContext();
+            var values = context.Bookings.Where(x => x.Description == "Rezervasyon Onaylandı").ToList();
+            return values;
+        }
+
+        public List<Booking> GetBookingStatusCanceled()
+        {
+            var context = new CoffyContext();
+            var values = context.Bookings.Where(x => x.Description == "Rezervasyon İptal Edildi").ToList();
+            return values;
+        }
+
+        public List<Booking> GetBookingStatusReceived()
+        {
+            var context = new CoffyContext();
+            var values = context.Bookings.Where(x => x.Description == "Rezervasyon Alındı").ToList();
+            return values;
+
         }
     }
 }

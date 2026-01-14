@@ -1,4 +1,5 @@
 ﻿using Coffy.BusinessLayer.Abstract;
+using Coffy.DataAccessLayer.Concrete;
 using Coffy.DtoLayer.BookingDto;
 using Coffy.EntityLayer.Entities;
 using Microsoft.AspNetCore.Http;
@@ -32,7 +33,7 @@ namespace CoffyApi.Controllers
                 Mail = createBookingDto.Mail,
                 PersonCount = createBookingDto.PersonCount,
                 Date = createBookingDto.Date,
-                Description = createBookingDto.Description
+                Description = "Rezervasyon Alındı"
             };
             _bookingService.TAdd(booking);
             return Ok("Randevu başarılı bir şekilde oluşturuldu");
@@ -49,6 +50,7 @@ namespace CoffyApi.Controllers
         {
             Booking booking = new Booking()
             {
+                Description = updateBookingDto.Description,
                 BookingID = updateBookingDto.BookingID,
                 Name = updateBookingDto.Name,
                 Phone = updateBookingDto.Phone,
@@ -78,6 +80,30 @@ namespace CoffyApi.Controllers
         {
             _bookingService.TBookingStatusCancelled(id);
             return Ok("Rezervasyon Açıklaması Değiştirildi");
+        }
+
+        [HttpGet("GetBookingStatusApproved")]
+        public IActionResult GetBookingStatusApproved()
+        {
+            var context = new CoffyContext();
+            var values = context.Bookings.Where(x => x.Description == "Rezervasyon Onaylandı").ToList();
+            return Ok(values.ToList());
+        }
+
+        [HttpGet("GetBookingStatusCanceled")]
+        public IActionResult GetBookingStatusCanceled()
+        {
+            var context = new CoffyContext();
+            var values = context.Bookings.Where(x => x.Description == "Rezervasyon İptal Edildi").ToList();
+            return Ok(values.ToList());
+        }
+        [HttpGet("GetBookingStatusReceived")]
+        public IActionResult GetBookingStatusReceived()
+        {
+            var context = new CoffyContext();
+            var values = context.Bookings.Where(x => x.Description == "Rezervasyon Alındı").ToList();
+            return Ok(values.ToList());
+
         }
     }
 }

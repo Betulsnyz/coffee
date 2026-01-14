@@ -38,6 +38,21 @@ namespace Coffy.BusinessLayer.Concrete
             _bookingDal.Delete(entity);
         }
 
+        public List<Booking> TGetBookingStatusApproved()
+        {
+            return _bookingDal.GetBookingStatusApproved();
+        }
+
+        public List<Booking> TGetBookingStatusCanceled()
+        {
+            return _bookingDal.GetBookingStatusCanceled();
+        }
+
+        public List<Booking> TGetBookingStatusReceived()
+        {
+            return _bookingDal.GetBookingStatusReceived();
+        }
+
         public Booking TGetbyID(int id)
         {
            return _bookingDal.GetbyID(id);
