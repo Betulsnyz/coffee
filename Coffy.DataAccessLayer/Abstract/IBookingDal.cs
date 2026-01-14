@@ -11,5 +11,9 @@ namespace Coffy.DataAccessLayer.Abstract
     {
         void BookingStatusApproved(int id);
         void BookingStatusCancelled(int id);
+
+        List<Booking> GetBookingStatusApproved();
+        List<Booking> GetBookingStatusCanceled();
+        List<Booking> GetBookingStatusReceived();
     }
 }

@@ -49,7 +49,7 @@ namespace CoffyApi.Hubs
             var value7 = _productService.TProductPriceAvg();
             await Clients.All.SendAsync("ReceiveProductPriceAvg", value7.ToString("0.00") + "₺");
 
-            var value8 = _productService.TProductNameByMaxPrice()   ;
+            var value8 = _productService.TProductNameByMaxPrice();
             await Clients.All.SendAsync("ReceiveProductNameByMaxPrice", value8);
 
             var value9 = _productService.TProductNameByMinPrice();
@@ -80,11 +80,11 @@ namespace CoffyApi.Hubs
             var value = _moneyCaseService.TTotalMoneyCaseAmount();
             await Clients.All.SendAsync("ReceiveTotalMoneyCaseAmount", value.ToString("0.00") + "₺");
 
-            var value2 = _orderService.TActiveOrderCount() ;
+            var value2 = _orderService.TActiveOrderCount();
             await Clients.All.SendAsync("ReceiveActiveOrderCount", value2);
 
-            var value3 = _menuTableService.TMenuTableCount() ;
-            await Clients.All.SendAsync("ReceiveMenuTableCount" , value3);
+            var value3 = _menuTableService.TMenuTableCount();
+            await Clients.All.SendAsync("ReceiveMenuTableCount", value3);
         }
 
         public async Task GetBookingList()
@@ -98,7 +98,7 @@ namespace CoffyApi.Hubs
             var value = _notificationService.TNotificationCountByStatusFalse();
             await Clients.All.SendAsync("ReceiveNotificationCountByFalse", value);
 
-            var notificationListByFalse= _notificationService.TGetAllNotificationByFalse();
+            var notificationListByFalse = _notificationService.TGetAllNotificationByFalse();
             await Clients.All.SendAsync("ReceiveNotificationListByFalse", notificationListByFalse);
         }
 
@@ -108,9 +108,9 @@ namespace CoffyApi.Hubs
             await Clients.All.SendAsync("ReceiveMenuTableStatus", value);
         }
 
-        public async Task SendMessage(string user,string message)
+        public async Task SendMessage(string user, string message)
         {
-            await Clients.All.SendAsync("ReceiveMessage", user , message);
+            await Clients.All.SendAsync("ReceiveMessage", user, message);
         }
 
         public override async Task OnConnectedAsync()
@@ -122,8 +122,26 @@ namespace CoffyApi.Hubs
         public override async Task OnDisconnectedAsync(Exception? exception)
         {
             clientCount--;
-            await Clients.All.SendAsync("ReceiveClientCount",clientCount);
+            await Clients.All.SendAsync("ReceiveClientCount", clientCount);
             await base.OnDisconnectedAsync(exception);
+        }
+
+        public async Task GetBookingStatusApproved()
+        {
+            var values = _bookingService.TGetBookingStatusApproved();
+            await Clients.All.SendAsync("ReceiveBookingStatusApproved", values);
+
+        }
+        public async Task GetBookingStatusCanceled()
+        {
+            var values = _bookingService.TGetBookingStatusCanceled();
+            await Clients.All.SendAsync("ReceiveBookingStatusCanceled", values);
+        }
+        public async Task GetBookingStatusReceived()
+        {
+            var values = _bookingService.TGetBookingStatusReceived();
+            await Clients.All.SendAsync("ReceiveBookingStatusReceived", values);
+
         }
     }
 }

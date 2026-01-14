@@ -94,5 +94,47 @@ namespace CoffyWebUI.Controllers
             await client.GetAsync($"https://localhost:7113/api/Booking/BookingStatusCancelled/{id}");
             return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> GetBookingStatusApproved(ResultBookingStatusApproved resultBookingStatusApproved)
+        {
+
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.GetAsync("https://localhost:7113/api/Booking/GetBookingStatusApproved");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<ResultBookingStatusApproved>>(jsonData);
+                return View(values);
+            }
+            return View();
+        }
+
+        public async Task<IActionResult> GetBookingStatusCanceled(ResultBookingStatusApproved resultBookingStatusApproved)
+        {
+
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.GetAsync("https://localhost:7113/api/Booking/GetBookingStatusCanceled");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<ResultBookingStatusApproved>>(jsonData);
+                return View(values);
+            }
+            return View();
+        }
+        public async Task<IActionResult> GetBookingStatusReceived(ResultBookingStatusApproved resultBookingStatusApproved)
+        {
+
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.GetAsync("https://localhost:7113/api/Booking/GetBookingStatusReceived");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<ResultBookingStatusApproved>>(jsonData);
+                return View(values);
+            }
+            return View();
+
+        }
     }
 }
