@@ -95,6 +95,7 @@ namespace CoffyWebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateProduct(UpdateProductDto updateProductDto)
         {
+            //updateProductDto.ProductStatus = true;
             var client = _httpClientFactory.CreateClient();
             var jsondata = JsonConvert.SerializeObject(updateProductDto);
             StringContent stringContent = new StringContent(jsondata, Encoding.UTF8, "application/json");
