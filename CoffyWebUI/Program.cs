@@ -1,6 +1,11 @@
+using Coffy.DataAccessLayer.Concrete;
+using Coffy.EntityLayer.Entities;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<CoffyContext>();
+builder.Services.AddIdentity<AppUser,AppRole>().AddEntityFrameworkStores<CoffyContext>();
 builder.Services.AddHttpClient();
 builder.Services.AddControllersWithViews();
 
