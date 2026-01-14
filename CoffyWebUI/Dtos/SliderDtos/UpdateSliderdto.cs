@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CoffyWebUI.Dtos.SliderDtos
 {
-    public class ResultSliderDto
+    public class UpdateSliderdto
     {
         public int SliderID { get; set; }
         public string Title1 { get; set; }
