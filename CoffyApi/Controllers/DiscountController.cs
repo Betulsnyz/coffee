@@ -35,7 +35,8 @@ namespace CoffyApi.Controllers
                 Amount = createDiscountDto.Amount,
                 Description = createDiscountDto.Description,
                 ImageUrl = createDiscountDto.ImageUrl,
-                Title = createDiscountDto.Title
+                Title = createDiscountDto.Title,
+                Status = false
             });
             return Ok("indirim  başarılı bir şekilde oluşturuldu");
         }
@@ -55,8 +56,8 @@ namespace CoffyApi.Controllers
                 DiscountID = updateDiscountDto.DiscountID,
                 ImageUrl = updateDiscountDto.ImageUrl,
                 Description = updateDiscountDto.Description,
-                Amount = updateDiscountDto.Amount
-                
+                Amount = updateDiscountDto.Amount,
+                Status =false
             });
             return Ok("indirim başarılı bir şekilde güncellendi");
         }
@@ -66,5 +67,20 @@ namespace CoffyApi.Controllers
             var value = _discountService.TGetbyID(id);
             return Ok(value);
         }
+
+        [HttpGet("ChangeStatusToTrue/{id}")]
+        public IActionResult ChangeStatusToTrue(int id)
+        {
+            _discountService.TChangeStatusToTrue(id);
+            return Ok("Ürün İndirimi Aktifleştirildi");
+        }
+
+        [HttpGet("ChangeStatusToFalse/{id}")]
+        public IActionResult ChangeStatusToFalse(int id)
+        {
+            _discountService.TChangeStatusToFalse(id);
+            return Ok("Ürün İndirimi Pasif Hale Getirildi");
+        }
+
     }
 }
