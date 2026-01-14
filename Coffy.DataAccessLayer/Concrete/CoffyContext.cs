@@ -1,4 +1,5 @@
 ﻿using Coffy.EntityLayer.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Coffy.DataAccessLayer.Concrete
 {
-    public class CoffyContext:DbContext
+    public class CoffyContext:IdentityDbContext<AppUser,AppRole,int>
     {
         override protected void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
