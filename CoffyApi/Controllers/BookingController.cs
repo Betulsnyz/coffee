@@ -31,7 +31,8 @@ namespace CoffyApi.Controllers
                 Phone = createBookingDto.Phone,
                 Mail = createBookingDto.Mail,
                 PersonCount = createBookingDto.PersonCount,
-                Date = createBookingDto.Date
+                Date = createBookingDto.Date,
+                Description = createBookingDto.Description
             };
             _bookingService.TAdd(booking);
             return Ok("Randevu başarılı bir şekilde oluşturuldu");
@@ -63,6 +64,20 @@ namespace CoffyApi.Controllers
         {
             var value = _bookingService.TGetbyID(id);
             return Ok(value);
+        }
+
+        [HttpGet("BookingStatusApproved/{id}")]
+        public IActionResult BookingStatusApproved(int id)
+        {
+            _bookingService.TBookingStatusApproved(id);
+            return Ok("Rezervasyon Açıklaması Değiştirildi");
+        }
+
+        [HttpGet("BookingStatusCancelled/{id}")]
+        public IActionResult BookingStatusCancelled(int id)
+        {
+            _bookingService.TBookingStatusCancelled(id);
+            return Ok("Rezervasyon Açıklaması Değiştirildi");
         }
     }
 }
