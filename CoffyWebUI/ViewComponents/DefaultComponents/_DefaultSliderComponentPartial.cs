@@ -18,7 +18,7 @@ namespace CoffyWebUI.ViewComponents.DefaultComponents
             var client = _httpClientFactory.CreateClient();
             
             
-            var responseMessage = await client.GetAsync("https://localhost:7113/api/Sliders");
+            var responseMessage = await client.GetAsync("https://localhost:7113/api/Slider");
 
             var jsondata = await responseMessage.Content.ReadAsStringAsync();
             var values = JsonConvert.DeserializeObject<List<ResultSliderDto>>(jsondata);
