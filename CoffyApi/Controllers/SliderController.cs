@@ -48,17 +48,17 @@ namespace CoffyApi.Controllers
             return Ok("öne çıkan bilgisi silindi");
         }
         [HttpPut]
-        public IActionResult UpdateSlider(UpdateSliderdto updateSliderdto)
+        public IActionResult UpdateSlider(UpdateSliderDto updateSliderDto)
         {
             _sliderService.TUpdate(new Slider()
             {
-                SliderID= updateSliderdto.SliderID,
-                Title1 = updateSliderdto.Title1,
-                Title2 = updateSliderdto.Title2,
-                Title3 = updateSliderdto.Title3,
-                Description1 = updateSliderdto.Description1,
-                Description2 = updateSliderdto.Description2,
-                Description3 = updateSliderdto.Description3
+                SliderID= updateSliderDto.SliderID,
+                Title1 = updateSliderDto.Title1,
+                Title2 = updateSliderDto.Title2,
+                Title3 = updateSliderDto.Title3,
+                Description1 = updateSliderDto.Description1,
+                Description2 = updateSliderDto.Description2,
+                Description3 = updateSliderDto.Description3
             });
             return Ok("öne çıkan bilgisi güncellendi");
         }

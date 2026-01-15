@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Coffy.DtoLayer.SliderDto
 {
-    public class UpdateSliderdto
+    public class UpdateSliderDto
     {
         public int SliderID { get; set; }
         public string Title1 { get; set; }
