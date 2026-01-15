@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Coffy.DataAccessLayer.Abstract
+namespace Coffy.BusinessLayer.Abstract
 {
-    public interface IMessageDal:IGenericDal<Message>
-    {
+    public interface IMessageService:IGenericService<Message>
+    { 
     }
 }
