@@ -1,13 +1,26 @@
 using Coffy.DataAccessLayer.Concrete;
 using Coffy.EntityLayer.Entities;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var requireAuthorizePolicy =new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 
 // Add services to the container.
 builder.Services.AddDbContext<CoffyContext>();
 builder.Services.AddIdentity<AppUser,AppRole>().AddEntityFrameworkStores<CoffyContext>();
 builder.Services.AddHttpClient();
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(opt =>
+{
+    opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
+});
+
+builder.Services.ConfigureApplicationCookie(opts =>
+{
+    opts.LoginPath = "/Login/Index/";
+});
 
 var app = builder.Build();
 
@@ -23,6 +36,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

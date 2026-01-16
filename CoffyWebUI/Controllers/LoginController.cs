@@ -1,12 +1,15 @@
 ﻿using Coffy.EntityLayer.Entities;
 using CoffyWebUI.Dtos.IdentityDtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoffyWebUI.Controllers
 {
+    [AllowAnonymous]
     public class LoginController : Controller
     {
+        
         private readonly SignInManager<AppUser> _signInManager;
 
         public LoginController(SignInManager<AppUser> signInManager)
