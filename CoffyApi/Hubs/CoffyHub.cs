@@ -85,6 +85,24 @@ namespace CoffyApi.Hubs
 
             var value3 = _menuTableService.TMenuTableCount();
             await Clients.All.SendAsync("ReceiveMenuTableCount", value3);
+
+            var value5 = _productService.TProductPriceAvg();
+            await Clients.All.SendAsync("ReceiveProductPriceAvg", value5);
+
+            var value6 = _productService.TProductAvgPriceByMakarna();
+            await Clients.All.SendAsync("ReceiveAvgPriceByMakarna", value6);
+
+            var value7 = _productService.TProductCountByCategoryNameDrink();
+            await Clients.All.SendAsync("ReceiveCountByCategoryNameDrink", value7);
+
+            var value8 = _orderService.TTotalOrderCount();
+            await Clients.All.SendAsync("ReceiveTotalOrderCount", value8);
+            var value9 = 85;
+            await Clients.All.SendAsync("ReceiveStaticValue1", value9);
+            var value10 = 35;
+            await Clients.All.SendAsync("ReceiveStaticValue2", value10);
+            var value11 = 57;
+            await Clients.All.SendAsync("ReceiveStaticValue3", value11);
         }
 
         public async Task GetBookingList()

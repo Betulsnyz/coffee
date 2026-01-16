@@ -33,7 +33,7 @@ namespace Coffy.DataAccessLayer.EntityFramework
         public int ProductCountByCategoryNameDrink()
         {
             using var context = new CoffyContext();
-            return context.Products.Where(x => x.CategoryID ==(context.Categories.Where(y => y.CategoryName=="İçecek").Select(z=>z.CategoryID).FirstOrDefault())).Count();
+            return context.Products.Where(x => x.CategoryID ==(context.Categories.Where(y => y.CategoryName=="Kahveler").Select(z=>z.CategoryID).FirstOrDefault())).Count();
         }
 
         public int ProductCountByCategoryNameMakarna()
