@@ -23,8 +23,8 @@ namespace CoffyApi.Controllers
         [HttpGet]
         public IActionResult CategoryList()
         {
-            var values = _mapper.Map<List<ResultCategoryDto>>(_categoryService.TGetListAll());
-            return Ok(values);
+            var values = _categoryService.TGetListAll();
+            return Ok(_mapper.Map<List<ResultCategoryDto>>(values));
         }
 
 
@@ -51,11 +51,10 @@ namespace CoffyApi.Controllers
         [HttpPost]
         public IActionResult CreateCategory(CreateCategoryDto createCategoryDto)
         {
-            _categoryService.TAdd(new Category()
-            {
-                CategoryName = createCategoryDto.CategoryName,
-                Status = true
-            });
+            createCategoryDto.Status = true;
+            
+            var value = _mapper.Map<Category>(createCategoryDto);
+            _categoryService.TAdd(value);
             return Ok("Kategori başarılı bir şekilde oluşturuldu");
         }
         [HttpDelete("{id}")]
@@ -68,19 +67,15 @@ namespace CoffyApi.Controllers
         [HttpPut]
         public IActionResult UpdateCategory(UpdateCategoryDto updateCategoryDto)
         {
-            _categoryService.TUpdate(new Category()
-            {
-                CategoryID = updateCategoryDto.CategoryID,
-                CategoryName = updateCategoryDto.CategoryName,
-                Status = updateCategoryDto.Status
-            });
+            var value = _mapper.Map<Category>(updateCategoryDto);
+            _categoryService.TUpdate(value);
             return Ok("Kategori başarılı bir şekilde güncellendi");
         }
         [HttpGet("{id}")]
         public IActionResult GetCategory(int id)
         {
             var value = _categoryService.TGetbyID(id);
-            return Ok(value);
+            return Ok(_mapper.Map<GetCategoryDto>(value));
         }
     }
 }

@@ -30,15 +30,8 @@ namespace CoffyApi.Controllers
         [HttpPost]
         public IActionResult CreateTestimonial(CreateTestimonialDto createTestimonialDto)
         {
-            _TestimonialService.TAdd(new Testimonial()
-            {
-                Comment = createTestimonialDto.Comment,
-                ImageUrl = createTestimonialDto.ImageUrl,
-                Name = createTestimonialDto.Name,
-                Status = createTestimonialDto.Status,
-                Title = createTestimonialDto.Title
-                
-            });
+            var value = _mapper.Map<Testimonial>(createTestimonialDto);
+            _TestimonialService.TAdd(value);
             return Ok("müşteri yorum bilgisi başarılı bir şekilde oluşturuldu");
         }
         [HttpDelete("{id}")]
@@ -51,23 +44,15 @@ namespace CoffyApi.Controllers
         [HttpPut]
         public IActionResult UpdateTestimonial(UpdateTestimonialDto updateTestimonialDto)
         {
-            _TestimonialService.TUpdate(new Testimonial()
-            {
-                Comment = updateTestimonialDto.Comment,
-                ImageUrl = updateTestimonialDto.ImageUrl,
-                Name = updateTestimonialDto.Name,
-                Status = updateTestimonialDto.Status,
-                Title = updateTestimonialDto.Title,
-                TestimonialID = updateTestimonialDto.TestimonialID
-                
-            });
+            var value = _mapper.Map<Testimonial>(updateTestimonialDto);
+            _TestimonialService.TUpdate(value);
             return Ok("müşteri yorum bilgisi başarılı bir şekilde güncellendi");
         }
         [HttpGet("{id}")]
         public IActionResult GetTestimonial(int id)
         {
             var value = _TestimonialService.TGetbyID(id);
-            return Ok(value);
+            return Ok(_mapper.Map<GetSocialMediaDto>(value));
         }
     }
 }

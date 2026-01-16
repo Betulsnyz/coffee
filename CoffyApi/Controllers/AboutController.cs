@@ -1,4 +1,5 @@
-﻿using Coffy.BusinessLayer.Abstract;
+﻿using AutoMapper;
+using Coffy.BusinessLayer.Abstract;
 using Coffy.DtoLayer.AboutDto;
 using Coffy.EntityLayer.Entities;
 using Microsoft.AspNetCore.Http;
@@ -11,29 +12,25 @@ namespace CoffyApi.Controllers
     public class AboutController : ControllerBase
     {
         private readonly IAboutService _aboutService;
-
-        public AboutController(IAboutService aboutService)
+        private readonly IMapper _mapper;
+        public AboutController(IAboutService aboutService, IMapper mapper)
         {
             _aboutService = aboutService;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public IActionResult AboutList()
         {
             var values = _aboutService.TGetListAll();
-            return Ok(values);
+            return Ok(_mapper.Map<List<ResultAboutDto>>(values));
         }
         [HttpPost]
         public IActionResult CreateAbout(CreateAboutDto createAboutDto)
         {
-            About about = new About()
-            {
-                ImageUrl = createAboutDto.ImageUrl,
-                Title = createAboutDto.Title,
-                Description = createAboutDto.Description
+            var value = _mapper.Map<About>(createAboutDto);
 
-            };
-            _aboutService.TAdd(about);
+            _aboutService.TAdd(value);
             return Ok("Hakkımda kısmı başarılı bir şekilde eklnedi");
         }
         [HttpDelete("{id}")]
@@ -46,22 +43,15 @@ namespace CoffyApi.Controllers
         [HttpPut]
         public IActionResult UpdateAbout(UpdateAboutDto updateAboutDto)
         {
-            About about = new About()
-            {
-                AboutID = updateAboutDto.AboutID,
-                ImageUrl = updateAboutDto.ImageUrl,
-                Title = updateAboutDto.Title,
-                Description = updateAboutDto.Description
-            };
-            _aboutService.TUpdate(about);
+            var value= _mapper.Map<About>(updateAboutDto);
+            _aboutService.TUpdate(value);
             return Ok("Hakkımda kısmı başarılı bir şekilde güncellendi");
         }
         [HttpGet("{id}")]
         public IActionResult GetAbout(int id)
         {
-            
             var value = _aboutService.TGetbyID(id);
-            return Ok(value);
+            return Ok(_mapper.Map<GetAboutDto>(value));
         }
     }
 }

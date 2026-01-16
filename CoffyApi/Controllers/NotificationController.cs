@@ -1,4 +1,5 @@
-﻿using Coffy.BusinessLayer.Abstract;
+﻿using AutoMapper;
+using Coffy.BusinessLayer.Abstract;
 using Coffy.DtoLayer.NotificationDto;
 using Coffy.EntityLayer.Entities;
 using Microsoft.AspNetCore.Http;
@@ -11,16 +12,19 @@ namespace CoffyApi.Controllers
     public class NotificationController : ControllerBase
     {
         private readonly INotificationService _notificationService;
+        private readonly IMapper _mapper;
 
-        public NotificationController(INotificationService notificationService)
+        public NotificationController(INotificationService notificationService, IMapper mapper)
         {
             _notificationService = notificationService;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public IActionResult NotificationList()
         {
-            return Ok(_notificationService.TGetListAll());
+            var value = _notificationService.TGetListAll();
+            return Ok(_mapper.Map<List<ResultNotificationDto>>(value));
         }
 
         [HttpGet("NotificationCountByStatusFalse")]
@@ -38,15 +42,11 @@ namespace CoffyApi.Controllers
         [HttpPost]
         public IActionResult CreateNotification(CreateNotificationDto createNotificationDto)
         {
-            Notification notification = new Notification()
-            {
-                Description = createNotificationDto.Description,
-                Icon = createNotificationDto.Icon,
-                Status = false,
-                Type = createNotificationDto.Type,
-                Date = Convert.ToDateTime(DateTime.Now.ToShortDateString())
-            };
-            _notificationService.TAdd(notification);
+            createNotificationDto.Status = false;
+            createNotificationDto.Date = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+
+            var value=_mapper.Map<Notification>(createNotificationDto);
+            _notificationService.TAdd(value);
             return Ok("ekleme işlemi başarıyla yapıldı");
         }
 
@@ -64,22 +64,14 @@ namespace CoffyApi.Controllers
         {
 
             var value = _notificationService.TGetbyID(id);
-            return Ok(value);
+            return Ok(_mapper.Map<GetNotificationDto>(value));
         }
 
         [HttpPut]
         public IActionResult UpdateNotification(UpdateNotificationDto updateNotificationDto)
         {
-            Notification notification = new Notification()
-            {
-                NotificationID = updateNotificationDto.NotificationID,
-                Description = updateNotificationDto.Description,
-                Icon = updateNotificationDto.Icon,
-                Status = updateNotificationDto.Status,
-                Type = updateNotificationDto.Type,
-                Date = Convert.ToDateTime(DateTime.Now.ToShortDateString())
-            };
-            _notificationService.TUpdate(notification);
+            var value = _mapper.Map<Notification>(updateNotificationDto);
+            _notificationService.TUpdate(value);
             return Ok("Güncelleme işlemi başarıyla yapıldı");
         }
 

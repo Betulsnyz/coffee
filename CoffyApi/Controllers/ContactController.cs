@@ -23,23 +23,14 @@ namespace CoffyApi.Controllers
         [HttpGet]
         public IActionResult ContactList()
         {
-            var values = _mapper.Map<List<ResultContactDto>>(_contactService.TGetListAll());
-            return Ok(values);
+            var values = _contactService.TGetListAll();
+            return Ok(_mapper.Map<List<ResultContactDto>>(values));
         }
         [HttpPost]
         public IActionResult CreateContact(CreateContactDto createContactDto)
         {
-            _contactService.TAdd(new Contact()
-            {
-                FooterDescription = createContactDto.FooterDescription,
-                Location = createContactDto.Location,
-                Mail  = createContactDto.Mail,
-                PhoneNumber = createContactDto.PhoneNumber,
-                FooterTitle = createContactDto.FooterTitle,
-                OpenDays = createContactDto.OpenDays,
-                OpenDaysDescription = createContactDto.OpenDaysDescription,
-                OpenHours = createContactDto.OpenHours
-            });
+            var value = _mapper.Map<Contact>(createContactDto);
+            _contactService.TAdd(value);
             return Ok("iletişim başarılı bir şekilde oluşturuldu");
         }
         [HttpDelete("{id}")]
@@ -52,25 +43,15 @@ namespace CoffyApi.Controllers
         [HttpPut]
         public IActionResult UpdateContact(UpdateContactDto updateContactDto)
         {
-            _contactService.TUpdate(new Contact()
-            {
-                PhoneNumber = updateContactDto.PhoneNumber, 
-                Mail = updateContactDto.Mail,   
-                ContactID = updateContactDto.ContactID,
-                FooterDescription = updateContactDto.FooterDescription,
-                Location = updateContactDto.Location,
-                FooterTitle= updateContactDto.FooterTitle,
-                OpenDays = updateContactDto.OpenDays,
-                OpenHours= updateContactDto.OpenHours,
-                OpenDaysDescription = updateContactDto.OpenDaysDescription
-            });
+            var value=_mapper.Map<Contact>(updateContactDto);
+            _contactService.TUpdate(value);
             return Ok("iletişim başarılı bir şekilde güncellendi");
         }
         [HttpGet("{id}")]
         public IActionResult GetContact(int id)
         {
             var value = _contactService.TGetbyID(id);
-            return Ok(value);
+            return Ok(_mapper.Map<GetContactDto>(value));
         }
     }
 }
