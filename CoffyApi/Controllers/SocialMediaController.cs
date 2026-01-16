@@ -30,13 +30,8 @@ namespace CoffyApi.Controllers
         [HttpPost]
         public IActionResult CreateSocialMedia(CreateSocialMediaDto createSocialMediaDto)
         {
-            _SocialMediaService.TAdd(new SocialMedia()
-            {
-                Title = createSocialMediaDto.Title,
-                Url = createSocialMediaDto.Url,
-                Icon = createSocialMediaDto.Icon
-                
-            });
+            var value = _mapper.Map<SocialMedia>(createSocialMediaDto);
+            _SocialMediaService.TAdd(value);
             return Ok("sosyal medya bilgisi başarılı bir şekilde oluşturuldu");
         }
         [HttpDelete("{id}")]
@@ -49,20 +44,15 @@ namespace CoffyApi.Controllers
         [HttpPut]
         public IActionResult UpdateSocialMedia(UpdateSocialMediaDto updateSocialMediaDto)
         {
-            _SocialMediaService.TUpdate(new SocialMedia()
-            {
-                Url = updateSocialMediaDto.Url,
-                Title = updateSocialMediaDto.Title,
-                SocialMediaID = updateSocialMediaDto.SocialMediaID,
-                Icon = updateSocialMediaDto.Icon
-            });
+            var value = _mapper.Map<SocialMedia>(updateSocialMediaDto);
+            _SocialMediaService.TUpdate(value);
             return Ok("sosyal medya bilgisi başarılı bir şekilde güncellendi");
         }
         [HttpGet("{id}")]
         public IActionResult GetSocialMedia(int id)
         {
             var value = _SocialMediaService.TGetbyID(id);
-            return Ok(value);
+            return Ok(_mapper.Map<GetSocialMediaDto>(value));
         }
     }
 }

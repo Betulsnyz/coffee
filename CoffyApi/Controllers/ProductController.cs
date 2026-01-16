@@ -25,8 +25,8 @@ namespace CoffyApi.Controllers
         [HttpGet]
         public IActionResult ProductList()
         {
-            var values = _mapper.Map<List<ResultProductDto>>(_ProductService.TGetListAll());
-            return Ok(values);
+            var values = _ProductService.TGetListAll();
+            return Ok(_mapper.Map<List<ResultProductDto>>(values));
         }
 
         [HttpGet("ProductCount")]
@@ -93,15 +93,8 @@ namespace CoffyApi.Controllers
         [HttpPost]
         public IActionResult CreateProduct(CreateProductDto createProductDto)
         {
-            _ProductService.TAdd(new Product()
-            {
-                Description = createProductDto.Description,
-                ImageUrl = createProductDto.ImageUrl,
-                Price = createProductDto.Price,
-                ProductName = createProductDto.ProductName,
-                ProductStatus = createProductDto.ProductStatus,
-                CategoryID = createProductDto.CategoryID
-            });
+            var value=_mapper.Map<Product>(createProductDto);
+            _ProductService.TAdd(value);
             return Ok("ürün bilgisi başarılı bir şekilde oluşturuldu");
         }
         [HttpDelete("{id}")]
@@ -114,23 +107,15 @@ namespace CoffyApi.Controllers
         [HttpPut]
         public IActionResult UpdateProduct(UpdateProductDto updateProductDto)
         {
-            _ProductService.TUpdate(new Product()
-            {
-                ProductStatus = updateProductDto.ProductStatus,
-                ProductID = updateProductDto.ProductID,
-                ProductName = updateProductDto.ProductName,
-                Price= updateProductDto.Price,
-                ImageUrl = updateProductDto.ImageUrl,
-                Description = updateProductDto.Description,
-                CategoryID = updateProductDto.CategoryID
-            });
+            var value = _mapper.Map<Product>(updateProductDto);
+            _ProductService.TUpdate(value);
             return Ok("ürün bilgisi başarılı bir şekilde güncellendi");
         }
         [HttpGet("{id}")]
         public IActionResult GetProduct(int id)
         {
             var value = _ProductService.TGetbyID(id);
-            return Ok(value);
+            return Ok(_mapper.Map<GetProductDto>(value));
         }
     }
 }
