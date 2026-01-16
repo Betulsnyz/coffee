@@ -26,7 +26,7 @@ namespace CoffyWebUI.Controllers
             mimeMessage.To.Add(mailboxAddressTo);
 
             var bodyBuilder = new BodyBuilder();
-            bodyBuilder.TextBody = createMailDto.Body;
+            bodyBuilder.HtmlBody = createMailDto.Body;
             mimeMessage.Body = bodyBuilder.ToMessageBody();
 
             mimeMessage.Subject=createMailDto.Subject;
