@@ -33,7 +33,8 @@ namespace CoffyApi.Controllers
             _SocialMediaService.TAdd(new SocialMedia()
             {
                 Title = createSocialMediaDto.Title,
-                Url = createSocialMediaDto.Url
+                Url = createSocialMediaDto.Url,
+                Icon = createSocialMediaDto.Icon
                 
             });
             return Ok("sosyal medya bilgisi başarılı bir şekilde oluşturuldu");
@@ -53,6 +54,7 @@ namespace CoffyApi.Controllers
                 Url = updateSocialMediaDto.Url,
                 Title = updateSocialMediaDto.Title,
                 SocialMediaID = updateSocialMediaDto.SocialMediaID,
+                Icon = updateSocialMediaDto.Icon
             });
             return Ok("sosyal medya bilgisi başarılı bir şekilde güncellendi");
         }
