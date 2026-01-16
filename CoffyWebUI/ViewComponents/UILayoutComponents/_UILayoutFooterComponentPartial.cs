@@ -25,8 +25,7 @@ namespace CoffyWebUI.ViewComponents.UILayoutComponents
             var jsonData = await responseMessage.Content.ReadAsStringAsync();
             var values = JsonConvert.DeserializeObject<List<ResultContactDto>>(jsonData);
 
-            var contact = values?.FirstOrDefault(); // 👈 null olabilir
-            return View(contact);
+            return View(values);
         }
 
 
