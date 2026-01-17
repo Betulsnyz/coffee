@@ -13,5 +13,6 @@ namespace Coffy.BusinessLayer.Abstract
         List<Notification> TGetAllNotificationByFalse();
         void TNotificationStatusChangeToTrue(int id);
         void TNotificationStatusChangeToFalse(int id);
+        Task CreateAsync(string description, string icon, string type);
     }
 }

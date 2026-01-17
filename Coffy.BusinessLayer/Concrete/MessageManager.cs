@@ -12,15 +12,24 @@ namespace Coffy.BusinessLayer.Concrete
     public class MessageManager : IMessageService
     {
         private readonly IMessageDal _messageDal;
+        private readonly INotificationService _notificationService;
 
-        public MessageManager(IMessageDal messageDal)
+        public MessageManager(IMessageDal messageDal, INotificationService notificationService)
         {
             _messageDal = messageDal;
+            _notificationService = notificationService;
         }
 
         public void TAdd(Message entity)
         {
             _messageDal.Add(entity);
+            _notificationService.CreateAsync(
+        "Yeni Yorumunuz var",
+        "la la-comment",
+        "notif-icon notif-success"
+    ).GetAwaiter().GetResult();
+
+
         }
 
         public void TDelete(Message entity)
