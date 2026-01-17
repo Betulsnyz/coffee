@@ -1,4 +1,5 @@
 ﻿using CoffyWebUI.Dtos.BookingDtos;
+using CoffyWebUI.Dtos.ContactDtos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http;
@@ -15,8 +16,16 @@ namespace CoffyWebUI.Controllers
             _httpClientFactory = httpClientFactory;
         }
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.GetAsync("https://localhost:7113/api/Contact");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<ResultContactDto>>(jsonData);
+                ViewBag.location = values.Select(x => x.Location).FirstOrDefault();
+            }
             return View();
         }
 
@@ -24,6 +33,15 @@ namespace CoffyWebUI.Controllers
         public async Task<IActionResult> Index(CreateBookingDto createBookingDto)
         {
             createBookingDto.Description = "Rezervasyon Alındı";
+
+            var client2 = _httpClientFactory.CreateClient();
+            var responseMessage2 = await client2.GetAsync("https://localhost:7113/api/Contact");
+            if (responseMessage2.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage2.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<ResultContactDto>>(jsonData);
+                ViewBag.location = values.Select(x => x.Location).FirstOrDefault();
+            }
 
             var client = _httpClientFactory.CreateClient();
             var jsondata = JsonConvert.SerializeObject(createBookingDto);
@@ -33,7 +51,12 @@ namespace CoffyWebUI.Controllers
             {
                 return RedirectToAction("Index","Default");
             }
-            return View();
+            else
+            {
+                var errorContent=await responseMessage.Content.ReadAsStringAsync();
+                ModelState.AddModelError(string.Empty, errorContent);
+            }
+                return View();
         }
     }
 }
