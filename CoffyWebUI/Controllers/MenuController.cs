@@ -19,7 +19,7 @@ namespace CoffyWebUI.Controllers
             var client = _httpClientFactory.CreateClient();
 
 
-            var responseMessage = await client.GetAsync("https://localhost:7113/api/Product");
+            var responseMessage = await client.GetAsync("https://localhost:7113/api/Product/ProductListWithCategory");
 
             var jsondata = await responseMessage.Content.ReadAsStringAsync();
             var values = JsonConvert.DeserializeObject<List<ResultProductDto>>(jsondata);

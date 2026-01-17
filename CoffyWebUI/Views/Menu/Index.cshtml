@@ -1,6 +1,7 @@
 ﻿@model List<ResultProductDto>
 @{
     Layout = null;
+    
 }
 
 
@@ -24,17 +25,27 @@
                 </h2>
             </div>
 
+            @* <ul class="filters_menu">
+                <li class="active" data-filter="*">Tüm Ürünler</li>
+                <li data-filter=".Kahveler">Kahveler</li>
+                <li data-filter=".Meşrubatlar">Meşrubatlar</li>
+                <li data-filter=".Tatlılar">Tatlılar</li>
+                <li data-filter=".Makarna ">Makarna </li>
+                <li data-filter=".Burger">Burger</li>
+                <li data-filter=".pizzalar">pizzalar</li>
+            </ul> *@
+
             <ul class="filters_menu">
                 <li class="active" data-filter="*">Tüm Ürünler</li>
-                <li data-filter=".burger">Kahveler</li>
-                <li data-filter=".pizza">Salatalar</li>
-                <li data-filter=".pasta">Meşrubatlar</li>
-                <li data-filter=".fries">Tatlılar</li>
-                <li data-filter=".fries">Pizzalar</li>
-                <li data-filter=".burger">Hamburger</li>
-                <li data-filter=".fries">Kahvaltılıklar</li>
-            </ul>
 
+                @foreach (var category in Model
+                                .Select(x => x.CategoryName)
+                                .Where(x => !string.IsNullOrWhiteSpace(x))
+                                .Distinct())
+                {
+                    <li data-filter=".@category">@category</li>
+                }
+            </ul>
 
             <div class="filters-content">
                 <div class="row grid">

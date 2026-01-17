@@ -12,15 +12,22 @@ namespace Coffy.BusinessLayer.Concrete
     public class BookingManager : IBookingService
     {
         private readonly IBookingDal _bookingDal;
+        private readonly INotificationService _notificationService;
 
-        public BookingManager(IBookingDal bookingDal)
+        public BookingManager(IBookingDal bookingDal, INotificationService notificationService)
         {
             _bookingDal = bookingDal;
+            _notificationService = notificationService;
         }
 
         public void TAdd(Booking entity)
         {
-            _bookingDal.Add(entity);
+                _bookingDal.Add(entity);
+                _notificationService.CreateAsync(
+                "Yeni rezervasyon alındı",
+                "la la-user-plus",
+                "notif-icon notif-primary"
+            ).GetAwaiter().GetResult();
         }
 
         public void TBookingStatusApproved(int id)
@@ -55,7 +62,7 @@ namespace Coffy.BusinessLayer.Concrete
 
         public Booking TGetbyID(int id)
         {
-           return _bookingDal.GetbyID(id);
+            return _bookingDal.GetbyID(id);
         }
 
         public List<Booking> TGetListAll()

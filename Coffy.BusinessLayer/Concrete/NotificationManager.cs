@@ -18,6 +18,20 @@ namespace Coffy.BusinessLayer.Concrete
             _notificationDal = notificationDal;
         }
 
+        public Task CreateAsync(string description, string icon, string type)
+        {
+            _notificationDal.Add(new Notification
+            {
+                Description = description,
+                Icon = icon,
+                Type = type,
+                Status = false,
+                Date = DateTime.Now
+            });
+
+            return Task.CompletedTask;
+        }
+
         public void TAdd(Notification entity)
         {
             _notificationDal.Add(entity);
