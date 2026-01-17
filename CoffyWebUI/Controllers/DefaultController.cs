@@ -1,11 +1,15 @@
-﻿using CoffyWebUI.Dtos.MessageDtos;
+﻿using CoffyWebUI.Dtos.ContactDtos;
+using CoffyWebUI.Dtos.MessageDtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Net.Http;
 using System.Text;
 
 namespace CoffyWebUI.Controllers
 {
+    [AllowAnonymous]
     public class DefaultController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -14,8 +18,16 @@ namespace CoffyWebUI.Controllers
         {
             _httpClientFactory = httpClientFactory;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.GetAsync("https://localhost:7113/api/Contact");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<ResultContactDto>>(jsonData);
+                ViewBag.location = values.Select(x => x.Location).FirstOrDefault();
+            }
             return View();
         }
 
@@ -23,6 +35,7 @@ namespace CoffyWebUI.Controllers
         [HttpGet]
         public PartialViewResult SendMessage()
         {
+            
             return PartialView();
         }
 
@@ -35,7 +48,7 @@ namespace CoffyWebUI.Controllers
             var responseMessage = await client.PostAsync("https://localhost:7113/api/Message", stringContent);
             if (responseMessage.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Default");
             }
             return View();
         }

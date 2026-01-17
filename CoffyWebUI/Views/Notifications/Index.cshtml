@@ -37,7 +37,9 @@
 									count++;
 									<tr>
 										<th>@count</th>
-										<td>@item.Description</td>
+										<td style="max-width:300px; word-break:break-word;">
+											@item.Description
+										</td>
 										<td>@item.Date.ToString("dd.MM.yyyy HH:mm")</td>
 										<td>@item.Status</td>
 										<td><a href="/Notifications/DeleteNotification/@item.NotificationID" class="btn btn-outline-danger">Sil</a></td>

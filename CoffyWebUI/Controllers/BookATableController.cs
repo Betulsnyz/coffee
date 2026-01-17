@@ -23,7 +23,8 @@ namespace CoffyWebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(CreateBookingDto createBookingDto)
         {
-            createBookingDto.PersonCount = 2;
+            createBookingDto.Description = "Rezervasyon Alındı";
+
             var client = _httpClientFactory.CreateClient();
             var jsondata = JsonConvert.SerializeObject(createBookingDto);
             StringContent stringContent = new StringContent(jsondata, Encoding.UTF8, "application/json");
