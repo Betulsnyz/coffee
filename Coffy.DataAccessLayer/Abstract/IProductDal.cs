@@ -17,5 +17,6 @@ namespace Coffy.DataAccessLayer.Abstract
         String ProductNameByMaxPrice();
         String ProductNameByMinPrice();
         decimal ProductAvgPriceByMakarna();
+        List<Product> GetLast9Products();
     }
 }

@@ -117,5 +117,13 @@ namespace CoffyApi.Controllers
             var value = _ProductService.TGetbyID(id);
             return Ok(_mapper.Map<GetProductDto>(value));
         }
+
+        [HttpGet("GetLast9Products")]
+        public IActionResult GetLast9Products()
+        {
+            var value = _ProductService.TGetLast9Products();
+            return Ok(value);
+        }
+
     }
 }

@@ -32,7 +32,11 @@
 								@foreach (var item in Model)
 								{
 									<tr>
-										<td>@item.Location</td>
+										<td title="@item.Location"
+											style="max-width:300px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+											@item.Location
+										</td>
+
 										<td>@item.PhoneNumber</td>
 										<td>@item.Mail</td>
 										<td>@item.FooterDescription</td>
