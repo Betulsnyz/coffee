@@ -1,9 +1,11 @@
 using Coffy.BusinessLayer.Abstract;
 using Coffy.BusinessLayer.Concrete;
+using Coffy.BusinessLayer.ValidationRules.BookingValidations;
 using Coffy.DataAccessLayer.Abstract;
 using Coffy.DataAccessLayer.Concrete;
 using Coffy.DataAccessLayer.EntityFramework;
 using CoffyApi.Hubs;
+using FluentValidation;
 using System.Reflection;
 using System.Text.Json.Serialization;
 
@@ -76,6 +78,8 @@ builder.Services.AddScoped<INotificationDal, EfNotificationDal>();
 
 builder.Services.AddScoped<IMessageService, MessageManager>();
 builder.Services.AddScoped<IMessageDal, EfMessageDal>();
+
+builder.Services.AddValidatorsFromAssemblyContaining<CreateBookingValidation>();
 
 
 builder.Services.AddControllersWithViews()

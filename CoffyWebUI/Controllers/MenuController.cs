@@ -31,6 +31,7 @@ namespace CoffyWebUI.Controllers
         {
             CreateBasketDto createBasketDto = new CreateBasketDto();
             createBasketDto.ProductID = id;
+
             var client = _httpClientFactory.CreateClient();
             var jsondata = JsonConvert.SerializeObject(createBasketDto);
             StringContent stringContent = new StringContent(jsondata, Encoding.UTF8, "application/json");
