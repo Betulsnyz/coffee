@@ -25,17 +25,10 @@
                 </h2>
             </div>
 
-            @* <ul class="filters_menu">
-                <li class="active" data-filter="*">Tüm Ürünler</li>
-                <li data-filter=".Kahveler">Kahveler</li>
-                <li data-filter=".Meşrubatlar">Meşrubatlar</li>
-                <li data-filter=".Tatlılar">Tatlılar</li>
-                <li data-filter=".Makarna ">Makarna </li>
-                <li data-filter=".Burger">Burger</li>
-                <li data-filter=".pizzalar">pizzalar</li>
-            </ul> *@
+            @await Component.InvokeAsync("_MenuCategoryFilterComponentPartial")
+            
 
-            <ul class="filters_menu">
+            @* <ul class="filters_menu">
                 <li class="active" data-filter="*">Tüm Ürünler</li>
 
                 @foreach (var category in Model
@@ -45,7 +38,7 @@
                 {
                     <li data-filter=".@category">@category</li>
                 }
-            </ul>
+            </ul> *@
 
             <div class="filters-content">
                 <div class="row grid">

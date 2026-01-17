@@ -7,20 +7,24 @@
             </h2>
         </div>
 
-        <ul class="filters_menu">
-            <li class="active" data-filter="*">All</li>
-            <li data-filter=".burger">Burger</li>
-            <li data-filter=".pizza">Pizza</li>
-            <li data-filter=".pasta">Pasta</li>
-            <li data-filter=".fries">Fries</li>
-        </ul>
+         <ul class="filters_menu">
+                
+
+                @foreach (var category in Model
+                                .Select(x => x.CategoryName)
+                                .Where(x => !string.IsNullOrWhiteSpace(x))
+                                .Distinct())
+                {
+                    <li data-filter=".@category">@category</li>
+                }
+         </ul> 
 
         <div class="filters-content">
             <div class="row grid">
                 @foreach (var item in Model)
                 {
 
-                    <div class="col-sm-6 col-lg-4 all pizza">
+                    <div class="col-sm-6 col-lg-4 all @item.CategoryName">
                         <div class="box">
                             <div>
                                 <div class="img-box">
@@ -37,7 +41,8 @@
                                         <h6>
                                             @item.Price₺
                                         </h6>
-                                        <a href="">
+                                        <a href="#" onclick="showproductid(@item.ProductID)">
+
                                             <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                                                 <g>
                                                     <g>
@@ -107,3 +112,21 @@
         </div>
     </div>
 </section>
+
+<script>
+    function showproductid(value){
+           var id= value;
+           $.ajax({
+               type:'post',
+               data: {item: id},
+               url:"/Menu/AddBasket/" + id,
+               contentType:'json',
+               success: function () {
+                       swal("Seçilen Ürün ID:" + id, "Seçtiğiniz Ürün Sepete Eklendi!", "success");
+
+               }
+           });
+    }
+
+</script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
