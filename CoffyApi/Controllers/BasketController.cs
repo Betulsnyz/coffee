@@ -48,10 +48,10 @@ namespace CoffyApi.Controllers
             _basketService.TAdd(new Basket()
             {   //Bahçe 01-->45 numaralı id mesela
                 ProductID = createBasketDto.ProductID,
+                MenuTableID=createBasketDto.MenuTableID,
                 Count = 1,
-                MenuTableID = 4,
                 Price=context.Products.Where(x=>x.ProductID==createBasketDto.ProductID).Select(y=>y.Price).FirstOrDefault(),
-                TotalPrice=0
+                TotalPrice=createBasketDto.TotalPrice
             });
             return Ok();
         }
