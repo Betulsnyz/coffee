@@ -14,10 +14,11 @@ namespace CoffyWebUI.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int id)
         {
+            TempData["id"] = id;
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7113/api/Basket/BasketListByMenuTableWithProductName?id=4");
+            var responseMessage = await client.GetAsync("https://localhost:7113/api/Basket/BasketListByMenuTableWithProductName?id="+id);
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsondata = await responseMessage.Content.ReadAsStringAsync();
@@ -29,11 +30,12 @@ namespace CoffyWebUI.Controllers
 
         public async Task<IActionResult> DeleteBasket(int id)
         {
+            //id = int.Parse(TempData["id"].ToString());
             var client = _httpClientFactory.CreateClient();
             var responseMessage = await client.DeleteAsync($"https://localhost:7113/api/Basket/{id}");
             if (responseMessage.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index",new {id = TempData["id"] });
             }
             return NoContent();
         }
